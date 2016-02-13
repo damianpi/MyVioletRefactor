@@ -85,7 +85,8 @@ public class HistoryNode extends EllipticalNode
     }
     
     public void setHistoryType(String historyType){
-    	this.historyType = historyType;
+        //test commit
+        this.historyType = historyType;
     }
     
     /** default node diameter */
