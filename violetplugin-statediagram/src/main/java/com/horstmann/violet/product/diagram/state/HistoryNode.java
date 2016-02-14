@@ -31,13 +31,12 @@ import com.horstmann.violet.product.diagram.abstracts.node.EllipticalNode;
 import com.horstmann.violet.workspace.sidebar.colortools.ColorToolsBarPanel;
 
 
-public class HistoryNode extends EllipticalNode
-{
+public abstract class HistoryNode extends EllipticalNode {
     
 
-    public HistoryNode()
-    {
+    public HistoryNode(final String historyType) {
         super();
+        this.historyType = historyType;
         setBackgroundColor(ColorToolsBarPanel.PASTEL_GREY.getBackgroundColor());
         setBorderColor(ColorToolsBarPanel.PASTEL_GREY.getBorderColor());
         setTextColor(ColorToolsBarPanel.PASTEL_GREY.getTextColor());
@@ -47,49 +46,50 @@ public class HistoryNode extends EllipticalNode
     public Rectangle2D getBounds()
     {
         Point2D currentLocation = getLocation();
-        double x = currentLocation.getX();
-        double y = currentLocation.getY();
-        double w = DEFAULT_DIAMETER;
-        double h = DEFAULT_DIAMETER;
+        final double x = currentLocation.getX();
+        final double y = currentLocation.getY();
+        final double w = getDefaultDiameter();
+        final double h = getDefaultDiameter();
         Rectangle2D currentBounds = new Rectangle2D.Double(x, y, w, h);
-        Rectangle2D snappedBounds = getGraph().getGridSticker().snap(currentBounds);
-        return snappedBounds;
+        return getGraph().getGridSticker().snap(currentBounds);
     }
 
-    public void draw(Graphics2D g2)
-    {
+    public void draw(Graphics2D g2) {
         super.draw(g2);
         Color oldColor = g2.getColor();
-
         g2.setColor(getBorderColor());
         Rectangle2D bounds = getBounds();
         Ellipse2D circle = new Ellipse2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
         g2.draw(circle); 
         Point2D currentLocation = getLocation();
-        g2.drawString(getHistoryType(), (int)currentLocation.getX()+5, (int)currentLocation.getY()+15);
+        g2.drawString(getHistoryType(),
+                      (int)currentLocation.getX() + getMoveNameRight(),
+                      (int)currentLocation.getY() + getMoveNameDown());
         g2.setColor(oldColor);
     }
 
-    /**
-     * Kept for compatibility with old versions
-     * 
-     * @param dummy
-     */
-    public void setFinal(boolean dummy)
-    {
-        // Nothing to do
-    }
 
     public String getHistoryType(){
-    	return this.historyType;
+
+        return this.historyType;
     }
-    
-    public void setHistoryType(String historyType){
-        //test commit
-        this.historyType = historyType;
+
+    public int getDefaultDiameter(){
+        return defaultDiameter;
     }
-    
-    /** default node diameter */
-    private static int DEFAULT_DIAMETER = 20;
-    protected String historyType;
+
+    public int getMoveNameDown(){
+        return moveNameDown;
+    }
+
+    public int getMoveNameRight(){
+        return moveNameRight;
+    }
+
+
+    protected final int defaultDiameter = 20;
+    protected final int moveNameRight = 5;
+    protected final int moveNameDown = 15;
+    protected final String historyType;
+
 }

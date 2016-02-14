@@ -176,7 +176,8 @@ public class PackageNode extends RectangularNode implements IResizableNode
     @Override
     public boolean addChild(INode n, Point2D p)
     {
-        if (n instanceof ClassNode || n instanceof InterfaceNode || n instanceof PackageNode || n instanceof EnumNode || n instanceof BallNode || n instanceof SocketNode)
+        if (n instanceof ClassNode || n instanceof InterfaceNode || n instanceof PackageNode || n instanceof EnumNode
+                || n instanceof BallNode || n instanceof SocketNode)
         {
             n.setParent(this);
             n.setGraph(this.getGraph());

@@ -14,31 +14,31 @@ public class TestSynchronizationBarVerticalNode{
 	@Test
 	public void testGetBoundsOfCorrectType(){
 		SynchronizationBarVerticalNode bar = new SynchronizationBarVerticalNode();
-		Rectangle2D bounds = bar.getBounds();
-		assertTrue(bounds instanceof Rectangle2D);
+		Rectangle2D initialBounds = bar.getBounds();
+		assertTrue(initialBounds instanceof Rectangle2D);
 	}
 	
 	@Test
 	public void testGetBoundsCorrectPosition(){
 		SynchronizationBarVerticalNode bar = new SynchronizationBarVerticalNode();
-		Point2D point = new Point2D.Double(0, 0);
-		assertTrue(bar.contains(point));
+		Point2D initialPosition = new Point2D.Double(0, 0);
+		assertTrue(bar.contains(initialPosition));
 	}
-	
-	@Test
-	public void testCheckCorrectPosition(){
-		SynchronizationBarVerticalNode bar = new SynchronizationBarVerticalNode();
-		Point2D point = new Point2D.Double(0, 0);
-		assertTrue(bar.contains(point));
-	}
+
+	//Robi to samo
+//	@Test
+//	public void testCheckCorrectPosition(){
+//		SynchronizationBarVerticalNode bar = new SynchronizationBarVerticalNode();
+//		Point2D point = new Point2D.Double(0, 0);
+//		assertTrue(bar.contains(point));
+//	}
 	
 	@Test
 	public void testCheckDefaultSize(){
 		SynchronizationBarVerticalNode bar = new SynchronizationBarVerticalNode();
-		Rectangle2D defined = new Rectangle2D.Double(0, 0, 4, 100);
-		Rectangle2D current = bar.getBounds();
-		assertEquals(defined, current);
-
+		Rectangle2D assertedInitialSize = new Rectangle2D.Double(0, 0, 4, 100);
+		Rectangle2D testedBarSize = bar.getBounds();
+		assertEquals(assertedInitialSize, testedBarSize);
 	}
 	
 	

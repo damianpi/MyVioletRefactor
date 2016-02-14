@@ -25,79 +25,50 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Arc2D;
-
 import com.horstmann.violet.product.diagram.abstracts.edge.IEdge;
-import com.horstmann.violet.product.diagram.abstracts.node.INode;
 import com.horstmann.violet.product.diagram.abstracts.node.RectangularNode;
 
 /**
- * Socket for class diagram
+ * SocketNode for Class diagram
  */
 public class SocketNode extends RectangularNode
 {
 
     @Override
-    public boolean addConnection(IEdge e)
-    {
-        Point2D defaultConnectionPoint = super.getConnectionPoint(e);
-        INode start = e.getStart();
-    	//INode endingNode = e.getEnd();
-    	if (this == start) {
-    		e.setEnd(e.getStart());
-    		e.setEndlocation(e.getStartLocation());
-    	}
-    	
-        return e.getEnd() != null && this != e.getEnd();
+    public boolean addConnection(IEdge e){
+         return this != e.getEnd() && super.addConnection(e);
     }
 
     @Override
-    public Point2D getConnectionPoint(IEdge e)
-    {
-    	Point2D curnt = getLocation();
-        return new Point2D.Double(curnt.getX(), curnt.getY()+(DEFAULT_HEIGHT/2));
+    public Point2D getConnectionPoint(IEdge e){
+    	Point2D location = getLocation();
+        int divideHeight = 2;
+        return new Point2D.Double(location.getX(), location.getY()+(DEFAULT_HEIGHT / divideHeight));
     }
 
     @Override
-    public Rectangle2D getBounds()
-    {
+    public Rectangle2D getBounds(){
         Rectangle2D b = getDefaultBounds();
         return new Rectangle2D.Double(b.getX(), b.getY(), DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
-    private Rectangle2D getDefaultBounds()
-    {
+    private Rectangle2D getDefaultBounds(){
         Point2D currentLocation = getLocation();
         double x = currentLocation.getX();
         double y = currentLocation.getY();
         double w = DEFAULT_WIDTH;
         double h = DEFAULT_HEIGHT;
-        Rectangle2D currentBounds = new Rectangle2D.Double(x, y, w, h);
-        return currentBounds;
-    }
-
-
-    private List<INode> getConnectedNodes()
-    {
-        List<INode> connectedNodes = new ArrayList<INode>();
-        for (IEdge e : getGraph().getAllEdges())
-        {
-            if (e.getStart() == this) connectedNodes.add(e.getEnd());
-            if (e.getEnd() == this) connectedNodes.add(e.getStart());
-        }
-        return connectedNodes;
+        return new Rectangle2D.Double(x, y, w, h);
     }
 
     @Override
-    public void draw(Graphics2D g2)
-    {
+    public void draw(Graphics2D g2){
         super.draw(g2);
         Color oldColor = g2.getColor();
         Rectangle2D bounds = getDefaultBounds();
-        g2.draw(new Arc2D.Double((int)bounds.getX(), (int)bounds.getY(), DEFAULT_WIDTH, DEFAULT_HEIGHT, 90, 180, Arc2D.OPEN));
+        g2.draw(new Arc2D.Double((int)bounds.getX(), (int)bounds.getY(),
+                                 DEFAULT_WIDTH, DEFAULT_HEIGHT, 90, 180, Arc2D.OPEN));
         g2.setColor(oldColor);
     }
 
@@ -110,6 +81,6 @@ public class SocketNode extends RectangularNode
         return (SocketNode) super.clone();
     }
 
-    private static int DEFAULT_WIDTH = 50; 
-    private static int DEFAULT_HEIGHT = 70; 
+    private static final int DEFAULT_WIDTH = 50;
+    private static final int DEFAULT_HEIGHT = 70;
 }

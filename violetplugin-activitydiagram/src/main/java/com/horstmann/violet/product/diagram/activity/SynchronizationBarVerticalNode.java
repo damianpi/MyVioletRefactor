@@ -33,97 +33,83 @@ import com.horstmann.violet.product.diagram.abstracts.node.INode;
 import com.horstmann.violet.product.diagram.abstracts.node.RectangularNode;
 
 /**
- * A synchronization bar node in an activity diagram.
+ * A vertical synchronization bar node in an activity diagram.
  */
 public class SynchronizationBarVerticalNode extends RectangularNode
 {
-
     @Override
-    public boolean addConnection(IEdge e)
-    {
+    public boolean addConnection(IEdge e){
+
         return e.getEnd() != null && this != e.getEnd();
     }
 
     @Override
-    public Point2D getConnectionPoint(IEdge e)
-    {
+    public Point2D getConnectionPoint(IEdge e) {
         Point2D defaultConnectionPoint = super.getConnectionPoint(e);
-        if (!ActivityTransitionEdge.class.isInstance(e))
-        {
+        if (!ActivityTransitionEdge.class.isInstance(e)) {
             return defaultConnectionPoint;
         }
-
         INode end = e.getEnd();
         INode start = e.getStart();
-        Point2D curnt = getLocation();//none
-
-        if (this == start)
-        {
-            Point2D endConnectionPoint = end.getConnectionPoint(e);
-            double y = defaultConnectionPoint.getY();
-            double x = endConnectionPoint.getX();
-            return new Point2D.Double(curnt.getX(), y);
-        }
-        if (this == end)
-        {
-            Point2D startConnectionPoint = start.getConnectionPoint(e);
-            double y = defaultConnectionPoint.getY();
-            double x = startConnectionPoint.getX(); 
-            Point2D node = start.getLocation();
-            return new Point2D.Double(curnt.getX(), node.getY());
+        Point2D currentLocation = getLocation();
+        if (this == start){
+            return determineStartConnectionPoint(e, currentLocation);
+        }else if (this == end) {
+            return determineEndConnectionPoint(e, currentLocation);
         }
         return defaultConnectionPoint;
     }
+
+    private Point2D determineEndConnectionPoint(IEdge e, Point2D location){
+        INode start = e.getStart();
+        Point2D node = start.getLocation();
+        return new Point2D.Double(location.getX(), node.getY());
+    }
+
+    private Point2D determineStartConnectionPoint(IEdge e, Point2D location){
+        INode end = e.getEnd();
+        Point2D node = end.getLocation();
+        return new Point2D.Double(location.getX(), node.getY());
+    }
     
     @Override
-    public Rectangle2D getBounds()
-    {
-        Rectangle2D b = getDefaultBounds();
+    public Rectangle2D getBounds() {
+        Rectangle2D defaultBounds = getDefaultBounds();
         List<INode> connectedNodes = getConnectedNodes();
-        if (connectedNodes.size() > 0)
-        {
+        if (connectedNodes.size() > 0) {
             double minY = Double.MAX_VALUE; 
-            double maxY = Double.MIN_VALUE; 
-            
-            for (INode n : connectedNodes)
-            {
+            double maxY = Double.MIN_VALUE;
+            for (INode n : connectedNodes) {
                 Rectangle2D b2 = n.getBounds();
                 minY = Math.min(minY, b2.getMinY()); 
                 maxY = Math.max(maxY, b2.getMaxY()); 
             }
-
-            minY -= EXTRA_HEIGHT; 
-            maxY += EXTRA_HEIGHT; 
-            translate(0, minY - b.getY());
-            b = new Rectangle2D.Double(b.getX(), minY, DEFAULT_WIDTH, maxY - minY);
+            minY -= getExtraHeight();
+            maxY += getExtraHeight();
+            translate(0, minY - defaultBounds.getY());
+            defaultBounds = new Rectangle2D.Double(defaultBounds.getX(), minY, getDefaultWidth(), maxY - minY);
         }
-        return b;
+        return defaultBounds;
     }
 
     /**
-     * 
      * @return minimal bounds (location + default width and default height
      */
-    private Rectangle2D getDefaultBounds()
-    {
+    private Rectangle2D getDefaultBounds() {
         Point2D currentLocation = getLocation();
         double x = currentLocation.getX();
         double y = currentLocation.getY();
-        double w = DEFAULT_WIDTH;
-        double h = DEFAULT_HEIGHT;
-        Rectangle2D currentBounds = new Rectangle2D.Double(x, y, w, h);
-        return currentBounds;
+        double w = getDefaultWidth();
+        double h = getDefaultHeight();
+        return new Rectangle2D.Double(x, y, w, h);
     }
 
     /**
-     * 
      * @return nodes which are connected (with edges) to this node
      */
-    private List<INode> getConnectedNodes()
-    {
+    private List<INode> getConnectedNodes() {
         List<INode> connectedNodes = new ArrayList<INode>();
-        for (IEdge e : getGraph().getAllEdges())
-        {
+        for (IEdge e : getGraph().getAllEdges()) {
             if (e.getStart() == this) connectedNodes.add(e.getEnd());
             if (e.getEnd() == this) connectedNodes.add(e.getStart());
         }
@@ -131,13 +117,11 @@ public class SynchronizationBarVerticalNode extends RectangularNode
     }
 
     @Override
-    public void draw(Graphics2D g2)
-    {
+    public void draw(Graphics2D g2) {
         super.draw(g2);
         Color oldColor = g2.getColor();
         g2.setColor(getBorderColor());
         g2.fill(getShape());
-
         g2.setColor(oldColor);
     }
 
@@ -145,12 +129,23 @@ public class SynchronizationBarVerticalNode extends RectangularNode
      * @see java.lang.Object#clone()
      */
     @Override
-    public SynchronizationBarVerticalNode clone()
-    {
+    public SynchronizationBarVerticalNode clone() {
         return (SynchronizationBarVerticalNode) super.clone();
     }
 
-    private static int DEFAULT_WIDTH = 4; 
-    private static int DEFAULT_HEIGHT = 100; 
-    private static int EXTRA_HEIGHT = 12; 
+    public int getDefaultWidth() {
+        return DEFAULT_WIDTH;
+    }
+
+    public int getDefaultHeight() {
+        return DEFAULT_HEIGHT;
+    }
+
+    public int getExtraHeight() {
+        return EXTRA_HEIGHT;
+    }
+
+    private static final int DEFAULT_WIDTH = 4;
+    private static final int DEFAULT_HEIGHT = 100;
+    private static final int EXTRA_HEIGHT = 12;
 }

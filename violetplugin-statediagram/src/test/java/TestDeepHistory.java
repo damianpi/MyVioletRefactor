@@ -12,44 +12,28 @@ import com.horstmann.violet.product.diagram.state.DeepHistoryNode;
 
 
 public class TestDeepHistory{
-	
 
 	
 	@Test
-	public void testCheckDeepHistoryCorrectType(){
-		DeepHistoryNode deep = new DeepHistoryNode();
-		assertTrue(deep instanceof DeepHistoryNode);
-	}
-	
-	@Test
 	public void testDeepHistoryHistoryType(){
-		DeepHistoryNode deep = new DeepHistoryNode();
-		assertEquals(deep.getHistoryType(), "H*");
+		DeepHistoryNode deepHistoryNode = new DeepHistoryNode();
+		assertEquals(deepHistoryNode.getHistoryType(), "H*");
 	}
 	
 	
 	@Test
 	public void testDeepSize(){
-		DeepHistoryNode deep = new DeepHistoryNode();
-		Rectangle2D cur = deep.getBounds();
-		Rectangle2D pos = new Rectangle2D.Double(0, 0, 20, 20);
-		assertEquals(cur, pos);
+		DeepHistoryNode deepHistoryNode = new DeepHistoryNode();
+		Rectangle2D deepHistoryNodePosition = deepHistoryNode.getBounds();
+		Rectangle2D assertedPositionAndSize = new Rectangle2D.Double(0, 0, 20, 20);
+		assertEquals(deepHistoryNodePosition, assertedPositionAndSize);
 	}
-	
-	
-	@Test
-	public void testSetDeepHistoryType(){
-		DeepHistoryNode deep = new DeepHistoryNode();
-		String def = deep.getHistoryType();
-		deep.setHistoryType("changed");
-		assertFalse(def.equals(deep.getHistoryType()));
-	}
-	
+
 
 	@Test
 	public void testDeepCorrectSizeAndPosition(){
-		DeepHistoryNode deep = new DeepHistoryNode();
-		Rectangle2D cur = deep.getBounds();
+		DeepHistoryNode deepHistoryNode = new DeepHistoryNode();
+		Rectangle2D cur = deepHistoryNode.getBounds();
 		Rectangle2D pos = new Rectangle2D.Double(0, 0, 20, 20);
 		assertEquals(cur, pos);	
 	}
