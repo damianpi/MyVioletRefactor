@@ -37,6 +37,9 @@ public abstract class HistoryNode extends EllipticalNode {
     public HistoryNode(final String historyType) {
         super();
         this.historyType = historyType;
+        this.defaultDiameter = 20;
+        this.moveNameRight = 5;
+        this.moveNameDown = 15;
         setBackgroundColor(ColorToolsBarPanel.PASTEL_GREY.getBackgroundColor());
         setBorderColor(ColorToolsBarPanel.PASTEL_GREY.getBorderColor());
         setTextColor(ColorToolsBarPanel.PASTEL_GREY.getTextColor());
@@ -87,9 +90,9 @@ public abstract class HistoryNode extends EllipticalNode {
     }
 
 
-    protected final int defaultDiameter = 20;
-    protected final int moveNameRight = 5;
-    protected final int moveNameDown = 15;
+    protected final int defaultDiameter;
+    protected final int moveNameRight;
+    protected final int moveNameDown;
     protected final String historyType;
 
 }

@@ -11,11 +11,11 @@ import com.horstmann.violet.product.diagram.abstracts.property.MultiLineString;
 import com.horstmann.violet.product.diagram.common.PointNode;
 
 /**
- * An enum node in a class diagram.
+ * An EnumNode in a Class diagram.
  */
 public class EnumNode extends RectangularNode{
     /**
-     * Construct an enum node with a default size and the text <<enum>>.
+     * Construct an Enum node with a default size and the text <<enum>>.
      */
     public EnumNode(){
         super();
@@ -56,7 +56,7 @@ public class EnumNode extends RectangularNode{
     }
 
     @Override
-    public Rectangle2D getBounds()    {
+    public Rectangle2D getBounds(){
         Rectangle2D top = getTopRectangleBounds();
         Rectangle2D bot = getBottomRectangleBounds();
         top.add(bot);
@@ -113,16 +113,24 @@ public class EnumNode extends RectangularNode{
         return (n instanceof PointNode);
     }
 
-    public void setName(MultiLineString newValue){
-        name = newValue;
+    public void setName(MultiLineString newValue) throws IllegalArgumentException{
+        if(newValue != null){
+            name = newValue;
+        }else{
+            throw new IllegalArgumentException();
+        }
     }
 
     public MultiLineString getName(){
         return name;
     }
 
-    public void setFields(MultiLineString newValue){
-        fields = newValue;
+    public void setFields(MultiLineString newValue) throws IllegalArgumentException{
+       if(newValue != null) {
+           fields = newValue;
+       }else{
+           throw new IllegalArgumentException();
+       }
     }
 
     public MultiLineString getFields(){
@@ -140,7 +148,6 @@ public class EnumNode extends RectangularNode{
 
     private MultiLineString name;
     private MultiLineString fields;
-
     private static int DEFAULT_COMPARTMENT_HEIGHT = 20;
     private static int DEFAULT_WIDTH = 100;
     private static int DEFAULT_HEIGHT = 60;

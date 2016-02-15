@@ -6,15 +6,7 @@ import java.awt.geom.Point2D;
 
 
 public class TestBallNode{
-	
 
-	@Test
-	public void testGetBoundsOfCorrectType(){
-		BallNode ballNode = new BallNode();
-		Rectangle2D bounds = ballNode.getBounds();
-		assertTrue(bounds instanceof Rectangle2D);
-	}
-	
 	@Test
 	public void testGetBoundsCorrectPosition(){
 		BallNode ballNode = new BallNode();
@@ -22,6 +14,12 @@ public class TestBallNode{
 		assertTrue(ballNode.contains(initialPoint));
 	}
 
+	@Test
+	public void testBallNodeSize(){
+		BallNode ballNode = new BallNode();
+		Rectangle2D bounds = ballNode.getBounds();
+		assertTrue(bounds.getWidth() == bounds.getHeight());
+	}
 	
 	
 	

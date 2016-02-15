@@ -84,10 +84,10 @@ public class SynchronizationBarVerticalNode extends RectangularNode
                 minY = Math.min(minY, b2.getMinY()); 
                 maxY = Math.max(maxY, b2.getMaxY()); 
             }
-            minY -= getExtraHeight();
-            maxY += getExtraHeight();
+            minY -= EXTRA_HEIGHT;
+            maxY += EXTRA_HEIGHT;
             translate(0, minY - defaultBounds.getY());
-            defaultBounds = new Rectangle2D.Double(defaultBounds.getX(), minY, getDefaultWidth(), maxY - minY);
+            defaultBounds = new Rectangle2D.Double(defaultBounds.getX(), minY, DEFAULT_WIDTH, maxY - minY);
         }
         return defaultBounds;
     }
@@ -99,8 +99,8 @@ public class SynchronizationBarVerticalNode extends RectangularNode
         Point2D currentLocation = getLocation();
         double x = currentLocation.getX();
         double y = currentLocation.getY();
-        double w = getDefaultWidth();
-        double h = getDefaultHeight();
+        double w = DEFAULT_WIDTH;
+        double h = DEFAULT_HEIGHT;
         return new Rectangle2D.Double(x, y, w, h);
     }
 
@@ -133,17 +133,6 @@ public class SynchronizationBarVerticalNode extends RectangularNode
         return (SynchronizationBarVerticalNode) super.clone();
     }
 
-    public int getDefaultWidth() {
-        return DEFAULT_WIDTH;
-    }
-
-    public int getDefaultHeight() {
-        return DEFAULT_HEIGHT;
-    }
-
-    public int getExtraHeight() {
-        return EXTRA_HEIGHT;
-    }
 
     private static final int DEFAULT_WIDTH = 4;
     private static final int DEFAULT_HEIGHT = 100;

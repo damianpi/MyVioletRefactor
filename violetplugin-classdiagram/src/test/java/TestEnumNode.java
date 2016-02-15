@@ -2,33 +2,35 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 import com.horstmann.violet.product.diagram.classes.nodes.EnumNode;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D;
-import com.horstmann.violet.product.diagram.abstracts.property.MultiLineString;
-
-
 
 
 public class TestEnumNode{
-	
 
-
-	
 	@Test
 	public void testGetBoundsCorrectPosition(){
 		EnumNode enumNode = new EnumNode();
 		Point2D initialPoint = new Point2D.Double(0, 0);
 		assertTrue(enumNode.contains(initialPoint));
 	}
-	
-//	@Test
-//	public void testCorrectName(){
-//		EnumNode enumNode = new EnumNode();
-//		MultiLineString enumName = enumNode.getName();
-//		assertEquals(enumName.getText(), "\u00ABenum\u00BB");
-//	}
-	
-	
 
+//	@Test
+//	public void testCheckCorrectInitialSize(){
+//		EnumNode enumNode = new EnumNode();
+//		Rectangle2D bounds = enumNode.getBounds();
+//		assertTrue()
+//	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetNullFields(){
+		EnumNode enumNode = new EnumNode();
+		enumNode.setFields(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetNullName(){
+		EnumNode enumNode = new EnumNode();
+		enumNode.setName(null);
+	}
 	
 }
