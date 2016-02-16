@@ -27,6 +27,5 @@ public class TestDeepHistory{
 		Rectangle2D bounds = deepHistoryNode.getBounds();
 		assertTrue(bounds.getWidth() == bounds.getHeight());
 	}
-	
-	
+
 }

@@ -27,7 +27,4 @@ public class TestSynchronizationBarVerticalNode{
 		Rectangle2D bounds = bar.getBounds();
 		assertTrue(bounds.getWidth() < bounds.getHeight());
 	}
-
-
-
 }
