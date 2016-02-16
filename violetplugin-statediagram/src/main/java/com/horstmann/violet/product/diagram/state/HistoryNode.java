@@ -46,8 +46,7 @@ public abstract class HistoryNode extends EllipticalNode {
     }
 
     @Override
-    public Rectangle2D getBounds()
-    {
+    public Rectangle2D getBounds() {
         Point2D currentLocation = getLocation();
         final double x = currentLocation.getX();
         final double y = currentLocation.getY();
