@@ -13,13 +13,7 @@ public class TestEnumNode{
 		Point2D initialPoint = new Point2D.Double(0, 0);
 		assertTrue(enumNode.contains(initialPoint));
 	}
-
-//	@Test
-//	public void testCheckCorrectInitialSize(){
-//		EnumNode enumNode = new EnumNode();
-//		Rectangle2D bounds = enumNode.getBounds();
-//		assertTrue()
-//	}
+	
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetNullFields(){
