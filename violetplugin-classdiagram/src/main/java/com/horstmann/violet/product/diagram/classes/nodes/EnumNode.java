@@ -78,7 +78,6 @@ public class EnumNode extends RectangularNode{
         fillBackground(g2, currentBounds);
         drawGraphics(g2, currentBounds, topBounds);
         addElements(g2, topBounds, bottomBounds);
-        g2.translate(-g2Location.getX(), -g2Location.getY());
         g2.setColor(oldColor);
     }
 
