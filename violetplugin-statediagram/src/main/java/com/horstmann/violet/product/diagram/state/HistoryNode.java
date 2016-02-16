@@ -72,10 +72,7 @@ public abstract class HistoryNode extends EllipticalNode {
     }
 
 
-    public String getHistoryType(){
-
-        return this.historyType;
-    }
+    public String getHistoryType(){ return this.historyType; }
 
     public int getDefaultDiameter(){
         return defaultDiameter;
@@ -90,9 +87,9 @@ public abstract class HistoryNode extends EllipticalNode {
     }
 
 
-    protected final int defaultDiameter;
-    protected final int moveNameRight;
-    protected final int moveNameDown;
-    protected final String historyType;
+    private final int defaultDiameter;
+    private final int moveNameRight;
+    private final int moveNameDown;
+    private final String historyType;
 
 }

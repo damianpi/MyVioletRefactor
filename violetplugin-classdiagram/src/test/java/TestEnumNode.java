@@ -32,5 +32,5 @@ public class TestEnumNode{
 		EnumNode enumNode = new EnumNode();
 		enumNode.setName(null);
 	}
-	
+
 }
